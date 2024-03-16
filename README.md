@@ -1,5 +1,5 @@
 > [!WARNING]  
-> This project was started March 14th 2024 and it is still in work in progress.
+> This project was started March 14th 2024 and it is still work in progress.
 <br>
 
 # Project Chameleon
