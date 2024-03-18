@@ -1,6 +1,6 @@
 import json
 
-# Definition of JSON 1 
+# Definition of JSON 1
 json_1 ={
   "vehicle": {
     "type": 10,
