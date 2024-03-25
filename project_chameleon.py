@@ -2,11 +2,45 @@ import json
 
 # Define mapping JSON 1 : JSON 2
 def get_vehicle_type_string(code):
-  code_map = {
-    10: "TRUCK"
+  vehicle_type_map = {
+    1: "MOTORCYCLE",
+    2: "MOTORCYCLE",
+    3: "MOTORCYCLE",
+    4: "PERSONAL_VEHICLE",
+    5: "MOTOR_CARAVAN",
+    6: "AMBULANCE",
+    7: "SEMITRAILER_TRUCK",
+    8: "TBD",
+    9: "TBD",
+    10: "TBD",
+    11: "TRACTOR",
+    12: "SINGLE_WHEEL_TRACTOR",
+    13: "13	PUBLIC_TRANSPORT_BUS",
+    14: "TROLLEY_BUS",
+    15: "BUS",
+    16: "BUS",
+    17: "TRAILER",
+    18: "TRAILER",
+    19: "SEMITRAILER",
+    20: "TRUCK",
+    21: "TBD",
     # Add other code mappings here
   }
-  return code_map.get(code, "UNKNOWN")
+  return vehicle_type_map.get(code, "UNKNOWN")
+
+def get_use_purpose_string(code):
+  use_purpose_map = {
+    0:"COMMON",
+    1:"SPECIAL",
+    2:"TAXI",
+    3:"RENT",
+    4:"BUSINESS",
+    5:"ADR",
+    6:"HISTORICAL",
+    7:"DRIVING_SCHOOL",
+    8:"OTHER",
+    # Add other code mappings here
+  }
 
 # Define of JSON 1 (old structure)
 json_1 = {
@@ -59,11 +93,18 @@ json_2 = {
 
 # Restructure data to match JSON 2 format
 json_2["vehicle"]["type"] = json_1["vehicle"]["type"]
+json_2["vehicle"]["fuelTypeCode"] = json_1["vehicle"]["fuelType"]
 
 # Do mapping JSON 1 : JSON 2
 vehicle_type_code = json_1["vehicle"]["type"]
+use_purpose_code = json_1["vehicle"]["fuelType"]
+
 vehicle_type_string = get_vehicle_type_string(vehicle_type_code)
+use_purpose_string = get_vehicle_type_string(vehicle_type_code)
+
 json_2["vehicle"]["type"] = vehicle_type_string
+json_2["vehicle"]["fuelTypeCode"] = use_purpose_string
 
 # Print the restructured JSON 2 data
+print(f"JSON 2 Request with JSON 1 data:")
 print(json.dumps(json_2, indent=2))
