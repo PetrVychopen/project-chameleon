@@ -15,7 +15,7 @@ def get_vehicle_type_string(code):
     10: "TBD",
     11: "TRACTOR",
     12: "SINGLE_WHEEL_TRACTOR",
-    13: "13	PUBLIC_TRANSPORT_BUS",
+    13: "PUBLIC_TRANSPORT_BUS",
     14: "TROLLEY_BUS",
     15: "BUS",
     16: "BUS",
