@@ -1,50 +1,46 @@
 import json
 
-# Define mapping JSON 1 : JSON 2
-def get_vehicle_type_string(code):
-  vehicle_type_map = {
+# Code maps
+vehicle_type_map = {
     1: "PERSONAL_VEHICLE",
-    # Add other code mappings here
-  }
-  return vehicle_type_map.get(code, "UNKNOWN")
-
-def get_fuel_type_string(code):
-  fuel_type_map = {
-    1:"PETROL",
-    # Add other code mappings here
-  }
-  return fuel_type_map.get(code, "UNKNOWN")
-
-# Define of JSON 1 (old structure)
-json_1 = {
-  "vehicle": {
-    "type": 1,
-    "fuelType": 1
-  }
+    # Add other vehicle type mappings here
 }
 
-# Define JSON 2 (new structure)
-json_2 = {
-  "vehicle": {
-    "type": "string",
-    "fuelTypeCode": "string"
-  }
+fuel_type_map = {
+    1: "PETROL",
+    # Add other fuel type mappings here
 }
 
-# Restructure data to match JSON 2 format
-json_2["vehicle"]["type"] = json_1["vehicle"]["type"]
-json_2["vehicle"]["fuelTypeCode"] = json_1["vehicle"]["fuelType"]
+def get_mapped_value(code, mapping_dict):
+    """Maps a code to its corresponding string value using a specified 
+    mapping dictionary."""
+    return mapping_dict.get(code, "UNKNOWN")
 
-# Do mapping JSON 1 : JSON 2
-vehicle_type_code = json_1["vehicle"]["type"]
-fuel_type_code = json_1["vehicle"]["fuelType"]
+# Define JSON data
+json_1_data = {
+    "vehicle": {
+        "type": 1,
+        "fuelType": 1
+    }
+}
 
-vehicle_type_string = get_vehicle_type_string(vehicle_type_code)
-fuel_type_string = get_fuel_type_string(fuel_type_code)
+json_2_template = {
+    "vehicle": {
+        "type": "string",
+        "fuelTypeCode": "string"
+    }
+}
 
-json_2["vehicle"]["type"] = vehicle_type_string
-json_2["vehicle"]["fuelTypeCode"] = fuel_type_string
+# Restructure JSON 1 data to match JSON 2 format with error handling
+json_2_data = json_2_template.copy() # To avoid modifying the original template
+try:
+    json_2_data["vehicle"]["type"] \
+      = get_mapped_value(json_1_data["vehicle"]["type"], vehicle_type_map)
+    json_2_data["vehicle"]["fuelTypeCode"] \
+      = get_mapped_value(json_1_data["vehicle"]["fuelType"], fuel_type_map)
+except KeyError as e:
+    print(f"Error: Missing key in JSON 1 data: {e}")
 
 # Print the restructured JSON 2 data
 print(f"JSON 2 Request with JSON 1 data:")
-print(json.dumps(json_2, indent=2))
+print(json.dumps(json_2_data, indent=2))
