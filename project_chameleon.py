@@ -14,7 +14,7 @@ fuel_type_map = {
 def get_mapped_value(code, mapping_dict):
     """Maps a code to its corresponding string value using a specified 
     mapping dictionary."""
-    return mapping_dict.get(code, "UNKNOWN")
+    return mapping_dict.get(code, "MISSING_MAPPING")
 
 # Define JSON data
 json_1_data = {
