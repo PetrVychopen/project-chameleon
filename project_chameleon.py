@@ -44,14 +44,25 @@ json_2_template = {
 }
 
 # Restructure JSON 1 data to match JSON 2 format with error handling
-json_2_data = json_2_template.copy() # To avoid modifying the original template
+
+# Make a copy of the template to avoid modifying the original template
+json_2_data = json_2_template.copy()
+
+# Try to map the vehicle and fuel type codes to their corresponding string values
 try:
+    # Get the vehicle type code from JSON 1 data
+    vehicle_type_code = json_1_data["vehicle"]["type"]
+    # Get the fuel type code from JSON 1 data
+    fuel_type_code = json_1_data["vehicle"]["fuelType"]
+
     # Map the vehicle type code to its corresponding string value
-    json_2_data["vehicle"]["type"] = map_value(json_1_data["vehicle"]["type"], vehicle_type_map)
+    json_2_data["vehicle"]["type"] = map_value(vehicle_type_code, vehicle_type_map)
     # Map the fuel type code to its corresponding string value
-    json_2_data["vehicle"]["fuelTypeCode"] = map_value(json_1_data["vehicle"]["fuelType"], fuel_type_map)
+    json_2_data["vehicle"]["fuelTypeCode"] = map_value(fuel_type_code, fuel_type_map)
+
+# If a key is missing in JSON 1 data, print an error message
 except KeyError as e:
-    print(f"Error: Missing key in JSON 1 data: {e}")
+    print("Error: Missing key in JSON 1 data:", e)
 
 # Print the restructured JSON 2 data
 print("JSON 2 Request with JSON 1 data:")
