@@ -1,7 +1,3 @@
-> [!WARNING]  
-> This project was started March 14th 2024 and it is still work in progress.
-<br>
-
 # Project Chameleon
 
 This Python script helps you adapt JSON data from one format (JSON 1) to another format (JSON 2), making it compatible with different systems.
